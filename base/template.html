@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/vue.js"></script>
+    <style>
+        .red {
+            background-color: red;
+        }
+        .green {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <!-- 模板中的代码就是代码 -->
+        <!--1 标签内部用{{}} -->
+        <div>name {{name}}</div>
+        <div>age {{age}}</div>
+        <!-- 三目表达式 -->
+        {{20>10?'big':'smalll'}}
+        <!--2 动态改变属性 :(v-bind:)绑定属性变量 -->
+        <div :class="whichColor">切换背景色</div>
+        <div :class="isColor?'red':'green'">切换背景色</div>
+        <img :src="imgpath" alt="" width="50" height="50">
+        <br>
+
+        <!--4 指令-->
+        <!-- v-show显示隐藏 控制 display:none -->
+        <div v-show='isShow'>动态显示</div>
+        <!-- v-if创建删除 直接删除创建 -->
+        <div v-if='isCreate'>动态创建删除</div>
+        <!-- v-for列表渲染的指令 -->
+        <ul>
+            <li v-for="(item,index) in list">
+                {{item}}, {{index}}
+            </li>
+        </ul>
+
+        <!--3 点击回调 @(v-on:)事件绑定 -->
+        <button @click="handleChange()">修改</button>
+    </div>
+    <script>
+        var temp = new Vue({
+            el: '#box',
+            data: {//数据
+                name: 'yanwei',
+                age: 10,
+                whichColor: 'red',
+                isColor: true,
+                imgpath: '',
+                isShow: false,
+                isCreate: false,
+                list: [1,2,3,4,5],
+
+            },
+            methods: {//方法
+                handleChange(){
+                    console.log('handleChange')
+                    //this 指向vue 的实例
+                    this.name = 'haoyanwei'
+                    this.age = 18
+                    this.whichColor = 'green'
+                    this.isColor = !this.isColor
+                    this.imgpath = 'https://cn.vuejs.org/images/logo.svg'
+                    this.isShow = !this.isShow
+                    this.isCreate = !this.isCreate
+                }
+            }
+        })
+    </script>
+</body>
+</html>
