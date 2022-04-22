@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/vue.next.js"></script>
+</head>
+<body>
+    <div id="box">
+        {{myname}}
+        <input type="text" v-model="myname">
+        <button @click="handleClick">点击</button>
+        <br>
+        <!-- 支持动态添加对象 app.classObj.cc = true -->
+        <div :class="classObj">动态class-1-对象</div>
+    </div>
+    <script>
+        // var vm = new Vue({
+        //     el:'#box',
+        // })
+        var obj = {
+            //函数式
+            data(){
+                return {
+                    myname: 'yanwei',
+                    classObj: {'aa':true, 'bb':false},
+                }
+            },
+            methods: {
+                handleClick(){
+                    console.log('handleClick', this.myname)
+                }
+            }   
+        }
+        var app = Vue.createApp(obj).mount('#box')
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/vue.js"></script>
+    <style>
+        .aa {font-size: 10px;}
+        .bb {font-size: 20px;}
+        .cc {font-size: 30px;}
+        .dd {font-size: 40px;}
+    </style>
+</head>
+<body>
+    <div id="box">
+        <!-- classObj为true的会显示，classObj.dd=true动态加的对象不会显示 -->
+        <!-- vue2 用Vue.set(对象,属性,true) 设置拦截 Vue.set(vm.classObj, 'dd', true) -->
+        <!-- vue3 支持动态添加 -->
+        <div :class="classObj">动态切换class-1-对象</div>
+        <!-- 数组方式支持动态添加、删除，因为Vue对数组对象重写了 -->
+        <div :class="classArr">动态切换class-2-数组</div>
+
+        <!-- 用法跟上边一样 -->
+        <div :style="styleObj">动态切换style-1-对象</div>
+        <div :style="styleArr">动态切换style-2-数组</div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                classObj: {
+                    aa: true,//显示
+                    bb: true,
+                    cc: false//隐藏
+                },
+                classArr: ["aa", "bb"],
+                styleObj: {
+                    backgroundColor: 'red',
+                },
+                styleArr: [{backgroundColor: 'green'}]
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+</html>
