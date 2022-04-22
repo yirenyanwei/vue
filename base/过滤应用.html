@@ -9,10 +9,21 @@
 </head>
 <body>
     <div id="box">
-        <!-- 监听输入事件 -->
+        <!-- 方法1 监听输入事件 -->
         <input type="text" @input="handleInput" v-model="mytext">
         <ul>
             <li v-for="(item, idx) in dataList" :key="item">
+                {{item}}
+            </li>
+        </ul>
+        <!-- 双大括号内部可以放表达式 -->
+        {{testMethod()}}
+
+        <!-- 方法2 函数表达式法  原理：输入后mytext改变，testMethod用到mytext,也会对应执行，下边的v-for用到了testMethod，也会对应执行-->
+        <hr>
+        <input type="text" v-model="mytext">
+        <ul>
+            <li v-for="(item, idx) in testMethod()" :key="item">
                 {{item}}
             </li>
         </ul>
@@ -21,12 +32,19 @@
         var vm = new Vue({
             el: '#box',
             data: {
+                originList: ['aaa', 'bbb', 'ccc', 'abc'],
                 dataList: ['aaa', 'bbb', 'ccc', 'abc'],
                 mytext: '',
             },
             methods: {
                 handleInput() {
-                    this.dataList = this.dataList.filter((value, idx)=>{
+                    this.dataList = this.originList.filter((value, idx)=>{
+                        //符合条件返回true
+                        return value.includes(this.mytext)
+                    })
+                },
+                testMethod(){
+                    return this.originList.filter((value, idx)=>{
                         //符合条件返回true
                         return value.includes(this.mytext)
                     })
