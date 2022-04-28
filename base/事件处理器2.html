@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        {{count}}
+        <button @click="handleAdd2">add-函数名</button>
+        <button @click="handleAdd1($event, 123)">add-执行函数</button>
+        <button @click="count++">add-直接触发代码</button>
+        <!-- .self修饰符，点击区域内只有自己，没有点到子节点时触发-->
+        <ul @click.self="handleUL">
+            <!-- .stop修饰符，阻止冒泡 -->
+            <li @click.stop="handleLI">1111</li>
+            <!-- .once只触发一次 -->
+            <li @click.once="handleLI">2222</li>
+            <li @click="handleLI">3333</li>
+            <li>4444</li>
+        </ul>
+
+        <!-- .prevent阻止默认行为 -->
+        <a href="http://www.baidu.com" @click.prevent>跳转</a>
+
+        <!-- 按键事件绑定 .enter点击enter修饰符  也可以连着写@keyup.enter.space 两个按键一块按生效 -->
+        <!-- 常用的还有  .esc .up .down .left .right .space .ctrl .shift .delete -->
+        <input type="text" @keyup.enter="handleKeyup">
+        <!-- 也可以直接输按键码 -->
+        <input type="text" @keyup.13="handleKeyup">
+    </div>
+    <script>
+        let vm = new Vue({
+            el:'#box',
+            data:{
+                count: 0,
+            },
+            methods:{
+                handleAdd1(evt, num){
+                    console.log(evt.target, num)
+                    this.count++
+                },
+                handleAdd2(evt){
+                    console.log(evt.target)
+                    this.count++
+                },
+                handleUL(){
+                    console.log('ul')
+                },
+                handleLI(evt){
+                    //阻止冒泡
+                    // evt.stopPropagation()
+                    console.log('li')
+                },
+                handleKeyup(evt){
+                    console.log(evt.keyCode)
+                    if(evt.keyCode == 13){
+                        console.log('enter', evt.target.value)
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

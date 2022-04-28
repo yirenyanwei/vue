@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/vue.js"></script>
+    <style>
+        #overly{
+            background-color: rgba(0,0,0,0.6);
+            width: 100%;
+            margin: auto;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        #center{
+            background-color: white;
+            border-radius: 5px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-left: 30px;
+            padding-right: 30px;
+            width: 290px;height: 160px;
+            position: fixed;
+            margin: auto;
+            left: 0;right: 0;top: 0;bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <button @click="isShow2=true">show</button>
+
+        <!-- 方案1 -->
+        <div id="overly" v-show="isShow" @click="isShow=false">
+            <!-- 阻止冒泡，防止点穿 -->
+            <div id="center" @click.stop>
+                <div>登录名:<input type="text"></div>
+                <div>密码:<input type="password"></div>
+                <div><button @click="isShow=false">登录</button></div>
+            </div>
+        </div>
+
+        <!-- 方案2 .self只点击区域内只有自己-->
+        <div id="overly" v-show="isShow2" @click.self="isShow2=false">
+            <div id="center">
+                <div>登录名:<input type="text"></div>
+                <div>密码:<input type="password"></div>
+                <div><button @click="isShow2=false">登录</button></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#box',
+            data: {
+                isShow: false,
+                isShow2: false,
+            },
+            methods:{
+
+            }
+        })
+    </script>
+</body>
+</html>

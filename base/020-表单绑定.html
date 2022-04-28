@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <!-- v-model绑定textarea -->
+        {{mytext}}
+        <br>
+        <textarea name="" id="" cols="30" rows="10" v-model="mytext"></textarea>
+
+        <br>
+        <div>用户名:<input type="text" v-model="mytext"></div>
+        <!-- v-model绑定checkbox选中 必须绑定bool类型 -->
+        <input type="checkbox" v-model="isRemember">记住用户名{{isRemember}}
+        <button @click="handleLogin">登录</button>
+
+        <br>
+        <h2>兴趣爱好</h2>
+        <!-- v-model绑定多选框 checkList为数组，input必须有value值-->
+        <div>{{checkList}}</div>
+        <input type="checkbox" v-model="checkList" value="vue"> vue
+        <input type="checkbox" v-model="checkList" value="c++"> c++
+        <input type="checkbox" v-model="checkList" value="java"> java
+
+        <br>
+        <h2>性别选择</h2>
+        <!-- v-model绑定单选按钮，保证input绑定的是同一个变量，必须有value；之前需要写name保证是一组 -->
+        <div>{{select}}</div>
+        <input type="radio" v-model="select" value="man">男
+        <input type="radio" v-model="select" value="woman">女
+    </div>
+    <script>
+        var vm = new Vue({
+            el:"#box",
+            data: {
+                mytext: localStorage.getItem('username'),
+                isRemember: false,
+                checkList: [],
+                select: 'man'
+            },
+            methods:{
+                handleLogin(){
+                    if(this.isRemember) {
+                        localStorage.setItem('username', this.mytext)
+                    }
+                    console.log(this.mytext, this.isRemember, this.checkList, this.select)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

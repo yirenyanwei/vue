@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/vue.next.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+        }
+        li img{
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul>
+            <!-- value可以放对象item，方便操作 -->
+            <li v-for="(item, idx) in datalist" :key="item.id">
+                <input type="checkbox" v-model="checklist" :value="item">
+                <img :src="item.pic" alt="">
+                <div>
+                    <div>{{item.name}}</div>
+                    <div style="color: red;">￥{{item.price}}</div>
+                </div>
+                <div>
+                    <!-- disabled为禁用 -->
+                    <button @click="item.number--" :disabled="item.number<=1">&nbsp;-&nbsp;</button>
+                    <span>{{item.number}}</span>
+                    <button @click="item.number++" :disabled="item.number>=item.limit">&nbsp;+&nbsp;</button>
+                </div>
+                <div>
+                    <button @click="handleDelete(idx)">delete</button>
+                </div>
+            </li>
+        </ul>
+        <div>总金额: {{sum()}}</div>
+        <div>checklist{{checklist}}</div>
+    </div>
+    <script>
+        var obj = {
+            data(){
+                return {
+                    datalist:[
+                        {
+                            name: 'goods1',
+                            price: 10,
+                            number: 1,
+                            id: 1,
+                            limit: 10,//限购数量
+                            pic: 'https://p0.pipi.cn/mmdb/25bfd69a8eac7e7a3539dd3abbabc299e2f10.jpg?imageView2/1/w/160/h/220'
+                        },
+                        {
+                            name: 'goods2',
+                            price: 20,
+                            number: 2,
+                            id: 2,
+                            limit: 20,//限购数量
+                            pic: 'https://p0.pipi.cn/mmdb/25bfd69a8eac7e7a3539dd3abbabc299e2f10.jpg?imageView2/1/w/160/h/220'
+                        },
+                        {
+                            name: 'goods3',
+                            price: 30,
+                            number: 3,
+                            id: 3,
+                            limit: 30,//限购数量
+                            pic: 'https://p0.pipi.cn/mmdb/25bfd69a8eac7e7a3539dd3abbabc299e2f10.jpg?imageView2/1/w/160/h/220    '
+                        }
+                    ],
+                    checklist: [], //勾选的数据
+                }
+            },
+            methods:{
+                sum(){
+                    let total = 0
+                    for(let item of this.checklist) {
+                        total += item.number*item.price
+                    }
+                    return total
+                },
+                handleDelete(index){
+                    let id = this.datalist[index].id
+                    this.datalist.splice(index, 1)
+                    for(let i in this.checklist) {
+                        let item = this.checklist[i]
+                        if(id == item.id){
+                            this.checklist.splice(i, 1)
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        var app = Vue.createApp(obj).mount('#box')
+    </script>
+</body>
+</html>
