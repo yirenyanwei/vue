@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        {{count}}
+        <!-- 自己传参有需要得到event参数，默认第一参数必须是$event -->
+        <button @click="handleAdd1($event, 1)">add-1函数表达式</button>
+        <!-- 不需要传参（）可以省略,默认带一个event参数 -->
+        <button v-on:click="handleAdd2">add-2函数名</button>
+        <button v-on:click="count++">add-3表达式</button>
+    </div>
+    <script>
+        var tm = new Vue({
+            el:'#box',
+            data:{
+                count: 0,
+            },
+            methods: {
+                handleAdd1(evt, num1){
+                    console.log(evt, evt.target)
+                    this.count++
+                },
+                handleAdd2(evt){
+                    console.log(evt, evt.target)
+                    this.count++
+                }
+            }
+        })
+    </script>
+</body>
+</html>

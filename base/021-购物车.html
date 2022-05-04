@@ -24,10 +24,12 @@
 </head>
 <body>
     <div id="box">
+        <!-- change事件，checkbox状态改变的事件 -->
+        <input type="checkbox" v-model="isAll" @change="handleAll">全选/全不选
         <ul>
-            <!-- value可以放对象item，方便操作 -->
+            <!-- value可以放对象item，value要放数组中，方便操作 -->
             <li v-for="(item, idx) in datalist" :key="item.id">
-                <input type="checkbox" v-model="checklist" :value="item">
+                <input type="checkbox" v-model="checklist" :value="item" @change="handleItem">
                 <img :src="item.pic" alt="">
                 <div>
                     <div>{{item.name}}</div>
@@ -51,6 +53,7 @@
         var obj = {
             data(){
                 return {
+                    isAll: false,
                     datalist:[
                         {
                             name: 'goods1',
@@ -98,6 +101,21 @@
                             break
                         }
                     }
+                    //过滤法
+                    // this.checklist = this.checklist.filter(item=>item.id!=id)
+
+                    this.handleItem()
+                },
+                handleAll(){
+                    if(this.isAll){
+                        this.checklist = this.datalist
+                    }else {
+                        this.checklist = []
+                    }
+                },
+                handleItem(){
+                    //判断全选
+                    this.isAll = (this.checklist.length == this.datalist.length)
                 }
             }
         }
