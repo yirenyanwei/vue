@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <!-- 方法1 监听输入事件 -->
+        <input type="text" v-model="mytext">
+        <ul>
+            <li v-for="(item, idx) in dataList" :key="item">
+                {{item}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                originList: ['aaa', 'bbb', 'ccc', 'abc'],
+                dataList: ['aaa', 'bbb', 'ccc', 'abc'],
+                mytext: '',
+            },
+            watch: {
+                //监听this.mytext属性，必须同名
+                mytext(newValue, oldValue){
+                    //可以进行异步操作
+                    console.log('改变了', newValue, oldValue)
+                    setTimeout(()=>{
+                        this.dataList = this.originList.filter((value, idx)=>{
+                            //符合条件返回true
+                            return value.includes(this.mytext)
+                        })
+                    }, 200)
+                }
+            },
+            methods: {
+                handleInput() {
+                    this.dataList = this.originList.filter((value, idx)=>{
+                        //符合条件返回true
+                        return value.includes(this.mytext)
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
