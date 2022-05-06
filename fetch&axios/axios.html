@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="lib/vue.js"></script>
+    <script src="lib/axios.js"></script>
     <style>
         li {
             overflow: hidden;
@@ -38,15 +39,11 @@
                 handleFetch(){
                     console.log('click button')
                     //get
-                    fetch('http://127.0.0.1:5500/vue/fetch&axios/json/maizuo.json')
+                    axios.get('http://127.0.0.1:5500/vue/fetch&axios/json/maizuo.json')
                     .then((res)=>{
-                        //状态码、响应头，拿不到真正数据
-                        // return res.text() 字符串
-                        return res.json()
-                    }).then(res=>{
-                        //真正的数据
-                        console.log(res.data.films)
-                        this.dataList = res.data.films
+                        console.log(res)
+                        //res.data为数据
+                        this.dataList = res.data.data.films
                     }).catch(err=>{
                         console.log(err)
                     })

@@ -19,5 +19,8 @@
   "homepage": "https://github.com/yirenyanwei/vue#readme",
   "devDependencies": {
     "vue": "^2.6.14"
+  },
+  "dependencies": {
+    "axios": "^0.27.2"
   }
 }
