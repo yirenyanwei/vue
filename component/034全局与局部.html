@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/vue.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <div id="box">
+        <navbar></navbar>
+        <child></child>
+        <rootchild></rootchild>
+    </div>
+    <script>
+        //定义全局组件
+        Vue.component("navbar", {
+            //dom、js、css  template只能包含一个根节点
+            template: `<section style="background:red;border:5px solid;">
+                <button @click="handleLeft">left</button>
+                猫眼电影--{{myname}}
+                <button @click="handleRight">right</button>
+                <child></child>
+                <tchild></tchild>
+                </section>`,
+            methods: {
+                handleLeft(){
+                    console.log('click left')
+                },
+                handleRight(){
+                    console.log('click right')
+                }
+            },
+            //组件中data必须是函数写法
+            data(){
+                return {
+                    myname:'hello',
+                }
+            },
+            computed: {},
+            watch: {},
+            //局部组件,只能在section根节点下用
+            components: {
+                "tchild":{
+                    template: `<div>tchild</div>`,
+                }
+            }
+        })
+        Vue.component('child', {
+            template: `<div style="background:rgba(0,255,0,0.5)">
+                    child
+                </div>`,
+        })
+        //根节点
+        var vm = new Vue({
+            el:"#box",
+            data: {
+
+            },
+            //局部组件 只能在#box根节点下用
+            components: {
+                "rootchild":{
+                    template: `<div>rootchild</div>`,
+                }
+            }
+        })
+    </script>
+</body>
+</html>

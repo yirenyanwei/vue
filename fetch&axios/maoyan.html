@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/vue.js"></script>
+    <script src="lib/axios.js"></script>
+    <style>
+        li > img {
+            width: 180px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <button @click="handleAjax">ajax</button>
+        <ul>
+            <li v-for="(item, idx) in dataList" :key="item.filmId">
+                <!-- 函数写法 -->
+                <!-- <img :src="dealImg(item.poster)" alt=""> -->
+                <!-- 过滤器 |为管道 可以链式处理 -->
+                <img :src="item.poster | imgFilter | imgFilter2" alt="">
+                {{item.name}}
+            </li>
+        </ul>
+    </div>
+    <script>
+        Vue.filter('imgFilter', (url)=>{
+            //修改尺寸
+            return url
+        })
+        Vue.filter('imgFilter2', (url)=>{
+            //修改尺寸
+            return url
+        })
+        var vm = new Vue({
+            el:"#box",
+            data: {
+                dataList: [],
+
+            },
+            methods: {
+                handleAjax(){
+                    console.log('click button')
+                    //get
+                    axios.get('http://127.0.0.1:5500/vue/fetch&axios/json/maizuo.json')
+                    .then((res)=>{
+                        console.log(res)
+                        //res.data为数据
+                        this.dataList = res.data.data.films
+                    }).catch(err=>{
+                        console.log(err)
+                    })
+                },
+                dealImg(url) {
+                    //修改尺寸
+                    return url
+                }
+            }
+        })
+    </script>
+</body>
+</html>
