@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/vue.js"></script>
+    <style>
+        .item {
+            overflow: hidden;
+            padding: 10px;
+            border: 1px solid red;
+            width: 400px;
+        }
+        .item > img {
+            width: 100px;
+            float: left;
+        }
+        .filminfo {
+            border: 1px solid black;
+            background-color: yellow;
+            width: 300px;
+            min-height: 200px;
+            position: fixed;
+            top: 100px;
+            right: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <button @click="handleAjax">ajax</button>
+        <film-item v-for="(data, idx) in dataList" :key="data.filmId" :itemdata="data"></film-item>
+        <film-detail :desc="desc"></film-detail>
+    </div>
+    <script>
+        //中央事件总线
+        var bus = new Vue()
+
+        Vue.component('filmItem', {
+            props: ['itemdata'],
+            template:`
+                <div class="item">
+                    <img :src="itemdata.poster" width="100"/>
+                    {{itemdata.name}}  
+                    <br>
+                    <button @click="handleClick">详情</button> 
+                </div>
+            `,
+            methods: {
+                handleClick() {
+                    console.log(this.itemdata.synopsis)
+                    bus.$emit('infoevent', this.itemdata.synopsis)
+                }
+            }
+        })
+        Vue.component('filmDetail', {
+            //生命周期 组件刚刚创建好
+            mounted(){
+                console.log('filmDetail mounted')
+                bus.$on('infoevent', (desc)=>{
+                    this.desc = desc
+                })
+            },
+            props:{
+                // desc: {
+                //     type: String,
+                //     default: ''
+                // }
+            },
+            template: `
+                <div class="filminfo">
+                    {{desc}}    
+                </div>
+            `,
+            data(){
+                return {
+                    desc:''
+                }
+            },
+            methods: {
+
+            }
+        })
+
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                dataList:[],
+                desc: ''
+            },
+            methods: {
+                handleAjax() {
+                    fetch('./json/maizuo.json')
+                        .then((res)=>res.json())
+                        .then((res)=>{
+                            let films = res.data.films
+                            console.log(films)
+                            this.dataList = films
+                        })
+                },
+                handleEvent(desc) {
+                    this.desc = desc
+                },
+            }
+        })
+    </script>
+</body>
+</html>
