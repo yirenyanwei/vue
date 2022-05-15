@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/vue.js"></script>
+    <style>
+        *{
+            padding: 0;
+        }
+        ul,li {
+            list-style: none;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+        }
+        ul {
+            display: flex;
+        }
+        ul li {
+            flex: 1;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background-color: gray;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <!-- v-show方式 -->
+        <!-- <home v-show="which=='home'"></home>
+        <list v-show="which=='list'"></list>
+        <shopcar v-show="which=='shopcar'"></shopcar> -->
+
+        <!-- 动态组件方式 is代表哪个组件名;-->
+        <!-- keep-alive标签表示切换的时候状态不变,输入框能保持输入内容,原理是把状态保存到内存中，切换回来时读取原来的状态 -->
+        <keep-alive>
+            <component :is="which"></component>
+        </keep-alive>
+
+        <footer>
+            <ul>
+                <li @click="which='home'">首页</li>
+                <li @click="which='list'">列表</li>
+                <li @click="which='shopcar'">购物车</li>
+            </ul>
+        </footer>
+    </div>
+    <script>
+        Vue.component('home', {
+            template: `
+                <div>home <input type="text" /></div>
+            `,
+        })
+        Vue.component('list', {
+            template: `
+                <div>list</div>
+            `,
+        })
+        Vue.component('shopcar', {
+            template: `
+                <div>shopcar</div>
+            `,
+        })
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                which: 'home'
+            }
+        })
+    </script>
+</body>
+</html>

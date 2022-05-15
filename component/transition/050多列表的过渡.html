@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+        /* 进场 */
+        .self-enter-active {
+            animation: aaa 1.5s;
+        }
+        /* 离场 */
+        .self-leave-active {
+            animation: aaa 1.5s reverse;
+        }
+        @keyframes aaa {
+            0% {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <!-- v-model指令 双向绑定一个输入框的value -->
+        <input type="text" v-model="myText">
+        <button @click="handleAdd()">添加</button>
+        <ul v-show="dataList.length">
+            <!-- transition-group 默认识别为一个span可以声明tag指定为其它 -->
+            <transition-group name="self" tag="div">
+                <li v-for="(data,index) in dataList" :key="data">
+                    {{data}}--{{index}}
+                    <button @click="handleDel(index)">del</button>
+                </li>
+            </transition-group>
+        </ul>
+        <div v-show="!dataList.length">代办事项空空如也</div>
+    </div>
+    <script>
+        var tmp = new Vue({
+            el:'#box',
+            data: {
+                dataList: [1,2,3],
+                myText:"",
+            },
+            methods: {
+                handleAdd(){
+                    this.dataList.push(this.myText)
+                    //清空
+                    this.myText = ''
+                },
+                handleDel(index) {
+                    this.dataList.splice(index, 1)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+        .left {}
+        .right {
+            position: fixed;
+            top: 50px;
+            right: 0px;
+        }
+        /* 进场 */
+        .left-enter-active {
+            animation: aaa 1.5s;
+        }
+        /* 离场 */
+        .left-leave-active {
+            animation: aaa 1.5s reverse;
+        }
+        @keyframes aaa {
+            0% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+
+        .right-enter-active {
+            animation: bbb 1.5s;
+        }
+        /* 离场 */
+        .right-leave-active {
+            animation: bbb 1.5s reverse;
+        }
+        @keyframes bbb {
+            0% {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <!-- 父级组件可以像处理 native DOM 事件一样通过 v-on 监听子组件实例的任意事件, 通过 $event 访问到被抛出的这个值 -->
+        <navbar>
+            <template #btn>
+                <button @click="isShow=!isShow">点击</button>
+            </template>
+        </navbar>
+        <!-- 可以传属性动画名 -->
+        <sidebar v-show="isShow" actionname="right"></sidebar>
+    </div>
+    <script>
+        Vue.component('navbar', {
+            template: `<div style="background-color: red;">
+                <slot name="btn"></slot>
+                导航栏
+            </div>`,
+            methods: {
+            }
+        })
+        Vue.component('sidebar', {
+            props:['actionname'],
+            template:`
+            <transition :name="actionname">
+                <div style="background-color: yellow;width:200px;height:500px" :class="actionname">
+                    <ul>
+                        <li>111</li>
+                        <li>222</li>
+                    </ul>
+                </div>
+            </transition>
+            `,
+
+        })
+        var vm = new Vue({
+            el:'#box',
+            data: {
+                isShow: true,
+            }
+        })
+    </script>
+</body>
+</html>

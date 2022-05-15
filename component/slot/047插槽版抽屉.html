@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <!-- 父级组件可以像处理 native DOM 事件一样通过 v-on 监听子组件实例的任意事件, 通过 $event 访问到被抛出的这个值 -->
+        <navbar>
+            <template #btn>
+                <button @click="isShow=!isShow">点击</button>
+            </template>
+        </navbar>
+        <sidebar v-show="isShow"></sidebar>
+    </div>
+    <script>
+        Vue.component('navbar', {
+            template: `<div style="background-color: red;">
+                <slot name="btn"></slot>
+                导航栏
+            </div>`,
+            methods: {
+            }
+        })
+        Vue.component('sidebar', {
+            template:`<div style="background-color: yellow;width:200px;height:500px">
+                <ul>
+                    <li>111</li>
+                    <li>222</li>
+                </ul>
+            </div>`,
+
+        })
+        var vm = new Vue({
+            el:'#box',
+            data: {
+                isShow: true,
+            }
+        })
+    </script>
+</body>
+</html>
