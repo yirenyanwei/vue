@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        {{name}}
+        {{globalName}}
+        <button @click=" name = 'xiaoming'">change</button>
+        <ul>
+            <li v-for="data in datalist" :key="data">
+                {{data}}
+            </li>
+        </ul>
+
+        <child v-if="isCreated"></child>
+    </div>
+    <script>
+        Vue.component('child', {
+            data() {
+                return {
+                    time: 1000
+                }
+            },
+            template: `
+                <div>抢购倒计时{{time}}</div>
+            `,
+            created(){
+                this.enterId = nil
+            },
+            mounted() {
+                this.entryId = setInterval(()=>{
+                    console.log('倒计时')
+                    this.time--
+                }, 1000)
+            },
+            //vue对象销毁之前
+            beforeDestroy(){
+                // 清除定时器，时间解绑等清理工作
+                console.log('beforeDestroy')
+                clearInterval(this.entryId)
+            },
+            //vue对象销毁之后
+            destroyed() {
+                console.log('destroyed')
+            }
+        })
+
+        var vm = new Vue({
+            el:'#box',
+            data:{
+                name: 'yanwei',
+                datalist: [],
+                isCreated: true,
+            },
+            //模板定义 根节点，有的话不用el
+            // template: `<div>root template</div>`,
+            //生命周期函数
+            //Events & Lifecycle 事件
+            beforeCreate() {
+                console.log('beforeCreate')
+            },
+            //injections & reactivity 注入 响应式
+            created() {
+                //可以访问到状态 初始化状态或者挂载到当前实例的一些属性工作
+                console.log('created', this.name)
+                this.name = 'YANWEI'
+                //不在data中的变量没有拦截  只是一个属性
+                this.globalName = 'globalName'
+            },
+            //el模板解析前
+            beforeMount() {
+                //模板解析前修改模板样式
+                console.log('beforeMount', this.$el)
+            },
+            //el模板解析完成
+            mounted() {
+                //依赖于dom创建之后，才能进行初始化的插件（轮播插件）
+                //订阅 bus.$on()
+                //发ajax
+                console.log('mounted', this.$el)
+                setTimeout(()=>{
+                    this.datalist = [111,222,333]
+                    //状态立即更新，dom异步更新
+                }, 1000)
+            },
+            //模板更新之前
+            beforeUpdate(){
+                //记录老的dom状态，比如滚动条位置
+                console.log('beforeUpdate')
+            },
+            //模板更新之后
+            updated(){
+                //dom甘心完成，比如轮播图开始播放
+                console.log('updated')
+            }
+        })
+        //el也可以写在外边
+        // vm.$mount('#box')
+    </script>
+</body>
+</html>

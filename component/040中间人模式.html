@@ -75,6 +75,16 @@
                 dataList:[],
                 desc: ''
             },
+            mounted(){
+                //dom解析完成
+                fetch('./json/maizuo.json')
+                    .then((res)=>res.json())
+                    .then((res)=>{
+                        let films = res.data.films
+                        console.log(films)
+                        this.dataList = films
+                    })
+            },
             methods: {
                 handleAjax() {
                     fetch('./json/maizuo.json')

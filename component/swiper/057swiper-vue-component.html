@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/swiper/swiper-bundle.js"></script>
+    <link rel="stylesheet" href="../lib/swiper/swiper-bundle.css">
+    <script src="../lib/vue.js"></script>
+    <script src="vueswiper.js"></script>
+    <style>
+        .swiper {
+            width: 600px;
+            height: 300px;
+        } 
+    </style>
+</head>
+<body>
+    <div id="box">
+        <!-- 异步中swiper加key值解决初始化问题，对比长度，不一样时重新创建swiper，还是用了diff对比 -->
+        <!-- v-if="dataList.length" 也可以解决 -->
+        <!-- 传属性控制swiper初始化的配置 -->
+        <swiper :key="dataList.length" :loop="true">
+            <swiper-item v-for="data in dataList" :key="data">
+                <img :src="data" alt="" height="300">
+            </swiper-item>
+            
+        </swiper>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#box',
+            data: {
+                dataList: []
+            },
+            mounted() {
+                setTimeout(()=>{
+                    let list = ['https://pic.maizuo.com/usr/movie/594ded98490b61549be7ecb5a9355b79.jpg', 
+                        'https://pic.maizuo.com/usr/movie/10e7be842fa87aae8f20c565ede789a1.jpg', 
+                        'https://pic.maizuo.com/usr/movie/afdef208d7b72a950b164c007e8a0837.jpg',
+                        'https://pic.maizuo.com/usr/movie/46015aa8e08a661e7c559b6e7407ce08.jpg']
+                    this.dataList = list
+                    //在这初始化swiper太早，因为dom还没有更新
+                }, 2000)
+            },
+
+        })
+    </script>
+</body>
+</html>
