@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/vue.next.js"></script>
+</head>
+<body>
+    <div id="box">
+        {{name}}
+        <navbar v-if="isVisible" myname="bar-yanwei">
+            <div>component navbar</div>
+        </navbar>
+        <sidebar></sidebar>
+    </div>
+    <script>
+        var obj = {
+            data(){
+                return {
+                    name:'yanwei',
+                    isVisible: true,
+                }
+            },
+            mounted(){
+                console.log('mounted')
+            },
+            // beforeDestroy() {
+            //     console.log('beforDestroyed')
+            // },
+            // destroyed() {
+            //     console.log('destroyed')
+            // },
+            //vue销毁之前函数
+            beforeUnmount(){
+                console.log('beforeUnmount')
+            },
+            //vue销毁之后
+            unmounted() {
+            },
+            methods: {
+            }   
+        }
+        var app = Vue.createApp(obj)
+        app.component('navbar', {
+            props: {
+                myname: String,
+            },
+            template: `
+                <div>
+                    navbar--{myname}
+                    <slot></slot>
+                </div>
+            `
+        })
+        app.component('sidebar', {
+            template: `
+                <div>
+                    sidebar
+                </div>
+            `
+        })
+        app.mount('#box')
+    </script>
+</body>
+</html>

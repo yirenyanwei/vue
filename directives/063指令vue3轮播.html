@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="lib/swiper/swiper-bundle.js"></script>
+    <link rel="stylesheet" href="lib/swiper/swiper-bundle.css">
+    <script src="lib/vue.next.js"></script>
+    <style>
+        .swiper {
+            width: 600px;
+            height: 300px;
+        } 
+    </style>
+</head>
+<body>
+    <div id="box">
+        <header>导航</header>
+
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="(data, idx) in dataList" :key="data" v-swiper="{idx:idx, length:dataList.length}">
+                    <img :src="data" alt="" height="300">
+                </div>
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+            
+            <!-- 如果需要导航按钮 -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            
+            <!-- 如果需要滚动条 -->
+            <!-- <div class="swiper-scrollbar"></div> -->
+        </div>
+
+        <footer>底部</footer>
+    </div>
+    <script>
+
+        //等待dom插入完成在初始化
+        function initSwiper() {
+            var mySwiper = new Swiper ('.swiper', {
+                // direction: 'vertical', // 垂直切换选项
+                loop: true, // 循环模式选项
+                // 如果需要分页器
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+                // 如果需要前进后退按钮
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                // 如果需要滚动条
+                // scrollbar: {
+                //     el: '.swiper-scrollbar',
+                // },
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+            })
+        }
+        var obj = {
+            data(){
+                return {
+                    dataList: [],
+                }
+            },
+            mounted() {
+                setTimeout(()=>{
+                    let list = ['https://pic.maizuo.com/usr/movie/594ded98490b61549be7ecb5a9355b79.jpg', 
+                        'https://pic.maizuo.com/usr/movie/10e7be842fa87aae8f20c565ede789a1.jpg', 
+                        'https://pic.maizuo.com/usr/movie/afdef208d7b72a950b164c007e8a0837.jpg',
+                        'https://pic.maizuo.com/usr/movie/46015aa8e08a661e7c559b6e7407ce08.jpg']
+                    this.dataList = list
+                    //在这初始化swiper太早，因为dom还没有更新
+                }, 2000)
+            },
+            // updated() {
+            //     initSwiper()
+            // }
+        }
+        var app = Vue.createApp(obj)
+        //指令方式初始化轮播
+        app.directive('swiper', {
+            //vue3声明周期函数改变了
+            mounted(el, binding){
+                console.log('inserted', binding.value)
+                //判断最后一个节点创建完成
+                let {idx, length} = binding.value
+                if(idx==length-1) {
+                    initSwiper()
+                }
+            },
+            update(){
+
+            }
+        })
+        app.mount('#box')
+    </script>
+</body>
+</html>
