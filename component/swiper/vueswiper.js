@@ -10,7 +10,7 @@ Vue.component('swiper', {
     props: {
         loop: {
             type: Boolean,
-            default: false
+            default: true
         }
     },
     template: `
