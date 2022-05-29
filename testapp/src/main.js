@@ -11,9 +11,3 @@ new Vue({
   render: h => h(App) // vue支持的新写法
 }).$mount('#app')
 
-// 这是注释
-const obj = {
-  name: 'haha',
-  foreName: "yanwei"
-}
-console.log(obj)

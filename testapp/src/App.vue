@@ -1,61 +1,45 @@
 <template>
-  <div>
-    this is a test
-    {{myname}}
-    <br>
-    <input type="text" v-model="mytext">
-    <button @click="handleAdd">add</button>
-    <ul>
-      <li v-for="data in dataList" :key="data">
-        {{data}}
-      </li>
-    </ul>
-    <!-- 属性传递，插槽都一样 -->
-    <navbar myname="home" :myright="false" @myevent="handleEvent">
-      <div>this is slots</div>
-    </navbar>
-    <sidebar v-show="isShow"></sidebar>
-  </div>
+    <div>
+        <!-- <div class="box">test adapt</div> -->
+        <ul>
+            <!-- vue-router 3.x 声明式导航 router-link是一个组件 -->
+            <!-- to跳转到哪个path  active-class自定义选中的条目类，默认是router-link-active tag渲染成的节点，默认a-->
+            <li>
+                <router-link to="/films" active-class="bottom-active" tag="a">电影</router-link>
+            </li>
+            <!-- vue-router 4.x的写法 v-slot插槽的写法，传一个对象 navigate点击回调  isActive是否选中 -->
+            <router-link to="/cinemas" custom v-slot="{navigate,isActive}">
+                <li @click="navigate" :class="isActive?'bottom-active':''">影院</li>
+            </router-link>
+            <router-link to="/center" custom v-slot="{navigate,isActive}">
+                <li @click="navigate" :class="isActive?'bottom-active':''">中心</li>
+            </router-link>
+        </ul>
+        <!-- 路由容器 slot的封装，如果路径匹配，组件就显示到这里-->
+        <router-view></router-view>
+    </div>
 </template>
-
 <script>
-import navbar from "./components/Navbar" //导入的是一个组件的大对象
-import sidebar from "./components/Sidebar"
-import Vue from "vue"
-//全局注册组件
-Vue.component('navbar', navbar)
-//es6导出 babel(es6-es5)
 export default {
-  data() {
-    return {
-      dataList: [],
-      myname: 'yanwei',
-      mytext: '',
-      isShow: true,
+    data() {
+        return {
+
+        }
     }
-  },
-  methods: {
-    handleAdd() {
-      this.dataList.push(this.mytext)
-    },
-    handleEvent() {
-      this.isShow = !this.isShow
-    }
-  },
-  components: {
-    //局部注册组件
-    sidebar
-  }
 }
 </script>
-
 <style lang="scss">
-// 父组件会覆盖孩子的样式
-$width: 300px;
-ul {
-  li {
-    background: yellow;
-    width: $width;
-  }
-}
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    //router-link中的类
+    .router-link-active,.bottom-active{
+        color: red;
+    }
+    .box {
+        width: 46.875rem;
+        height: 18.75rem;
+        background: yellow;
+    }
 </style>

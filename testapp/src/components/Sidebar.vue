@@ -2,9 +2,9 @@
     <div>
         sidebar
         <ul>
-            <li>11111</li>
-            <li>2222</li>
-            <li>3333</li>
+            <li v-for="data in dataList" :key="data.filmId">
+                {{data.name}}
+            </li>
         </ul>
 
     </div>
@@ -19,3 +19,29 @@ ul {
   }
 }
 </style>
+<script>
+import axios from 'axios'
+export default {
+    data(){
+        return {
+            dataList: [],
+        }
+    },
+    mounted() {
+        console.log('mounted')
+        //fetcch
+        // fetch('/maizuo.json')
+        //     .then(res=>res.json())
+        //     .then(res=>{
+        //         console.log(res.data.films)
+        //         this.dataList = res.data.films
+        //     })
+
+        //axios
+        axios.get('/maizuo.json')
+            .then(res=>{
+                this.dataList = res.data.data.films
+            })
+    }
+}
+</script>

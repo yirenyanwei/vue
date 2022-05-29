@@ -1,0 +1,57 @@
+{
+    "status": 0,
+    "banner": [
+        {
+            "bannerId": 430,
+            "actionType": 22,
+            "actionData": "{\"businessId\":\"5471\"}",
+            "imgUrl": "https://static.maizuo.com/v5/upload/1f3663c350f286161b0a0e7f0c9bd579.jpg",
+            "masterTitle": "",
+            "slaveTitle": "",
+            "displayOrder": 0,
+            "bindBusinessId": "",
+            "cityIds": "0",
+            "name": "我要我们在一起",
+            "displayTimes": 0,
+            "slaveImgUrl": "",
+            "startTime": "1653235200",
+            "endTime": "1656604799",
+            "businessId": ""
+        },
+        {
+            "bannerId": 431,
+            "actionType": 22,
+            "actionData": "{\"businessId\":\"5471\"}",
+            "imgUrl": "https://static.maizuo.com/v5/upload/1f3663c350f286161b0a0e7f0c9bd579.jpg",
+            "masterTitle": "",
+            "slaveTitle": "",
+            "displayOrder": 0,
+            "bindBusinessId": "",
+            "cityIds": "0",
+            "name": "我要我们在一起",
+            "displayTimes": 0,
+            "slaveImgUrl": "",
+            "startTime": "1653235200",
+            "endTime": "1656604799",
+            "businessId": ""
+        },
+        {
+            "bannerId": 432,
+            "actionType": 22,
+            "actionData": "{\"businessId\":\"5471\"}",
+            "imgUrl": "https://static.maizuo.com/v5/upload/1f3663c350f286161b0a0e7f0c9bd579.jpg",
+            "masterTitle": "",
+            "slaveTitle": "",
+            "displayOrder": 0,
+            "bindBusinessId": "",
+            "cityIds": "0",
+            "name": "我要我们在一起",
+            "displayTimes": 0,
+            "slaveImgUrl": "",
+            "startTime": "1653235200",
+            "endTime": "1656604799",
+            "businessId": ""
+        }
+    ],
+    "msg": "success"
+}
