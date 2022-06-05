@@ -1,0 +1,37 @@
+{
+  "id": "3439406",
+  "name": "卖座网",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1718353",
+      "name": "下箭头",
+      "font_class": "xiajiantou",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "11372773",
+      "name": "我的",
+      "font_class": "wode",
+      "unicode": "e8c6",
+      "unicode_decimal": 59590
+    },
+    {
+      "icon_id": "11372783",
+      "name": "影院",
+      "font_class": "yingyuan",
+      "unicode": "e8c7",
+      "unicode_decimal": 59591
+    },
+    {
+      "icon_id": "11372788",
+      "name": "电影",
+      "font_class": "dianying",
+      "unicode": "e8c4",
+      "unicode_decimal": 59588
+    }
+  ]
+}

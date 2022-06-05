@@ -1,0 +1,65 @@
+{
+    "status": 0,
+    "data": {
+        "film": {
+            "filmId": 5969,
+            "name": "哆啦A梦：大雄的宇宙小战争2021",
+            "poster": "https://pic.maizuo.com/usr/movie/6f06e7d36bacb4fd683cfa79364816f5.jpg",
+            "actors": [
+                {
+                    "name": "山口晋",
+                    "role": "导演",
+                    "avatarAddress": "https://pic.maizuo.com/usr/movie/70732f61c74c8c6ace4ad76c8e52f145.jpg@1246w_1246h_1l_0e"
+                },
+                {
+                    "name": "水田山葵",
+                    "role": "Doraemon,",
+                    "avatarAddress": "https://pic.maizuo.com/usr/movie/5d31b9c38343b57d8f3268340894bcb5.jpg@1246w_1246h_1l_0e"
+                },
+                {
+                    "name": "嘉数由美",
+                    "role": "Shizuka,",
+                    "avatarAddress": "https://pic.maizuo.com/usr/movie/67642fc2c248a590962e240d92494a99.jpg@1246w_1246h_1l_0e"
+                },
+                {
+                    "name": "关智一",
+                    "role": "Suneo,",
+                    "avatarAddress": "https://pic.maizuo.com/usr/movie/22cc7823acd7fe1871b03a7609bcf3be.jpg@1246w_1246h_1l_0e"
+                },
+                {
+                    "name": "大原惠美",
+                    "role": "Nobita,",
+                    "avatarAddress": "https://pic.maizuo.com/usr/movie/ef839ad3ed6a276f0ebf2e5b75c3d0b7.jpg@1246w_1246h_1l_0e"
+                }
+            ],
+            "director": "山口晋",
+            "category": "科幻|冒险|动画",
+            "synopsis": "电影讲述大雄意外结识来自匹里卡星、体形小巧的外星人帕比，并在哆啦A梦的帮助下，与大家一起穿越星际，共同守护友情和星球的宇宙冒险故事。",
+            "filmType": {
+                "name": "2D",
+                "value": 1
+            },
+            "nation": "日本",
+            "language": "",
+            "videoId": "",
+            "premiereAt": 1653696000,
+            "timeType": 3,
+            "runtime": 110,
+            "photos": [
+                "https://pic.maizuo.com/usr/2022/526c5a1d82b34a743374dfd574a6140c.jpg",
+                "https://pic.maizuo.com/usr/2022/691801dc23a33f3af3e1b0601405ffd0.jpg",
+                "https://pic.maizuo.com/usr/2022/830ec2520a385b516e95f776a7dbb0a7.png",
+                "https://pic.maizuo.com/usr/2022/9a098bc8a55400ee29ceae2006ff4c68.jpg",
+                "https://pic.maizuo.com/usr/2022/b6228c6ea26328cecf73046f1d9da7a3.jpg"
+            ],
+            "grade": "7.1",
+            "item": {
+                "name": "2D",
+                "type": 1
+            },
+            "isPresale": false,
+            "isSale": true
+        }
+    },
+    "msg": "ok"
+}

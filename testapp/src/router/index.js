@@ -9,6 +9,7 @@ import Center from '@/views/Center'
 import Detail from '@/views/Detail'
 // import Order from '@/views/Order'
 import Login from '@/views/Login'
+import City from '@/views/City'
 
 Vue.use(VueRouter) //注册路由插件 router-view router-link
 
@@ -69,6 +70,10 @@ const routes = [
   {
     path: '/login',//登录界面
     component: Login,
+  },
+  {
+    path: '/city',//城市选择界面
+    component: City,
   },
   {
     path: '*', //通配符，没匹配到的情况，优先级最低

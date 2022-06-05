@@ -1,30 +1,28 @@
 <template>
     <div>
         <!-- <div class="box">test adapt</div> -->
-        <ul>
-            <!-- vue-router 3.x 声明式导航 router-link是一个组件 -->
-            <!-- to跳转到哪个path  active-class自定义选中的条目类，默认是router-link-active tag渲染成的节点，默认a-->
-            <li>
-                <router-link to="/films" active-class="bottom-active" tag="a">电影</router-link>
-            </li>
-            <!-- vue-router 4.x的写法 v-slot插槽的写法，传一个对象 navigate点击回调  isActive是否选中 -->
-            <router-link to="/cinemas" custom v-slot="{navigate,isActive}">
-                <li @click="navigate" :class="isActive?'bottom-active':''">影院</li>
-            </router-link>
-            <router-link to="/center" custom v-slot="{navigate,isActive}">
-                <li @click="navigate" :class="isActive?'bottom-active':''">中心</li>
-            </router-link>
-        </ul>
         <!-- 路由容器 slot的封装，如果路径匹配，组件就显示到这里-->
-        <router-view></router-view>
+        <section>
+            <router-view></router-view>
+        </section>
+        <tabbar v-show="$store.state.isTabbarShow"></tabbar>
     </div>
 </template>
 <script>
+import Vue from 'vue';
+import Vant from 'vant';
+import 'vant/lib/index.css';
+import tabbar from "@/components/Tabbar"
+
+Vue.use(Vant);//引入vant组件库
 export default {
     data() {
         return {
 
         }
+    },
+    components: {
+        tabbar
     }
 }
 </script>
@@ -33,13 +31,15 @@ export default {
         margin: 0;
         padding: 0;
     }
-    //router-link中的类
-    .router-link-active,.bottom-active{
-        color: red;
+    ul,li {
+        list-style: none;
     }
     .box {
         width: 46.875rem;
         height: 18.75rem;
         background: yellow;
+    }
+    section {
+        margin-bottom: 3.0625rem;
     }
 </style>
